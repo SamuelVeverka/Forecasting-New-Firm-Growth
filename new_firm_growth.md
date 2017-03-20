@@ -158,7 +158,7 @@ It can be helpful to observe a plot of the time series which will make up the VA
 ```r
 #Plot variables
 layout(1)
-plot(var_3,type="l",col="blue",main="Establishment Birth, Consumer Sentiment Index, and 10-Year Treasury")
+plot(var_3,type="l",col="blue",main="Establishment Birth, CSI, and 10-Year Treasury")
 ```
 
 ![](new_firm_growth_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
@@ -620,7 +620,7 @@ lines(pred_var_2_ts[,1],col="red")
 lines(pred_var_3_ts[,1],col="yellow")
 lines(pred_ar_ts[,1],col="purple")
 abline(h=0)
-legend(x="topright",c("Establishment Births","VAR 1 Forecast","VAR 2 Forecast", "VAR 3 Forecast","AR(1) Forecast"),
+legend(x="topright",c("Establishment Births","VAR 1 Forecast","VAR 2 Forecast", "VAR 3 Forecast","AR(1) Forecast"), ncol = 2,
        col=c("black","green","red", "yellow","purple"),lty=1,lwd=.5)
 title(main = "Actual Establishment Births and 1-Step-Ahead Forecasts")
 ```
@@ -635,7 +635,7 @@ lines(pred_var_2_ts[,4],col="red")
 lines(pred_var_3_ts[,4],col="yellow")
 lines(pred_ar_ts[,4],col="purple")
 abline(h=0)
-legend(x="topright",c("Establishment Births","VAR 1 Forecast","VAR 2 Forecast", "VAR 3 Forecast","AR(1) Forecast"),
+legend(x="topright",c("Establishment Births","VAR 1 Forecast","VAR 2 Forecast", "VAR 3 Forecast","AR(1) Forecast"), ncol = 2,
        col=c("black","green","red", "yellow","purple"),lty=1,lwd=.8)
 title(main = "Actual Establishment Births and 4-Step-Ahead Forecasts")
 ```
