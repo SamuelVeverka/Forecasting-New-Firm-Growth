@@ -1,10 +1,10 @@
-# Forecasting New Firm Growth
+﻿# Forecasting New Firm Growth
 Sam Veverka  
 20 March 2017  
 
 
 
-#Introduction
+## Introduction
 
 Entrepreneurship has been a popular topic of discussion in the United States for the past few decades. Much media attention has been directed at the perceived center of entrepreneurship, Silicon Valley. The attention makes sense. Stories of small, garage tech companies flourishing into multi-billion behemoths captures the imagination. Given the spotlight shown on Silicon Valley and its disrupters, one would assume that entrepreneurship, quantified in this paper by the number of new establishments entering the economy, would be on the rise. The opposite is true. The creation of new businesses has been on the decline in the U.S. for thirty five years .
 
@@ -12,66 +12,17 @@ What drives new establishment growth, and hence entrepreneurship in the United S
 
 So if movements in new business growth can be explained by consumer confidence and interest rates, one should be able to forecast movements in business growth using consumer confidence and interest rates. This paper attempts to do that.
 
-#Load Libraries
+## Load Libraries
 
 
 ```r
 #load packages
 library(forecast)
-```
-
-```
-## Loading required package: zoo
-```
-
-```
-## 
-## Attaching package: 'zoo'
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     as.Date, as.Date.numeric
-```
-
-```
-## Loading required package: timeDate
-```
-
-```
-## This is forecast 7.3
-```
-
-```r
 library(vars)
-```
-
-```
-## Loading required package: MASS
-```
-
-```
-## Loading required package: strucchange
-```
-
-```
-## Loading required package: sandwich
-```
-
-```
-## Loading required package: urca
-```
-
-```
-## Loading required package: lmtest
-```
-
-```r
 library(tseries)
 ```
 
-#Import Data and Convert to Time Series
+## Import Data and Convert to Time Series
 
 
 There are not really good proxies for entrepreneurship outside of new business growth and for new business growth data sets are limited. The metric I use is the quarterly national establishment birth rate which is the number of newly created establishments as a percentage of total establishments. The rate of establishment birth is provided by the Bureau of Labor Statistics and has only been calculated since Q3 1992 to the present. Historical new business growth is the limiting factor in this model, so all data will be over the period of Q3 1992 to Q1 2016.
@@ -100,7 +51,7 @@ DGS10 <- ts(data=DGS10_1,start=c(1992,3),frequency=4)
 ```
 
 
-#Methodology
+## Methodology
 VAR models will be used to recursively forecast new establishment growth. There are 3 different VAR specifications, two bivariate models and a trivariate model encompassing the bivariate models.  All models will have new establishment births as the dependent variable and lagged establishment births as an independent variable or variables. The bivariate models will be a combination of lagged establishment births with lagged consumer confidence and lagged interest rates. The trivariate model will include all three lagged values as independent variables.
 
 
@@ -113,7 +64,7 @@ var_3 <- ts(cbind(establishment_birth,CSI, DGS10),start=c(1992,3),frequency=4) #
 
 Once the model is specified, I will recursively forecast new establishment births. The period of 1992:Q3 – 2012:Q4 will be used for the sample, and the period of 2013:Q1 – 2016:Q1 will be forecasted with all three VAR models. I believe through 2012 is a good ending point for the sample space as it captures the Great Recession and most of the bounce back from it. The results will be compared amongst each other and against an AR(1) benchmark, which regresses new establishment births on lagged new establishment births. The forecasts will be compared with the appropriate nested and non-nested comparison tests.
 
-#Specification Results
+## Specification Results
 
 
 To find the correct specification, I start by checking to verify that the new establishment births series is covariance stationary via the Augmented Dickey Fuller test and the Phillips-Perron Unit Root Test.
@@ -548,7 +499,7 @@ causality(model2,cause="DGS10")$Granger
 
 For the trivariate case, VAR Model 3, the coefficients on establishment birth, CSI, and the 10-Year Treasury are all significant at the 1% level of significance.The outcome of the Granger causality test as well as the VAR Model 3 coefficient’s significance are a favorable sign and perhaps indicate that the VAR models have marginal predictive power and may forecast better, or at least as well as a simple AR(1) model.
 
-#Forecast Results
+## Forecast Results
 As mentioned earlier, recursive forecasting will be used. The period of 1992:Q3 – 2012:Q4 is the sample for the four models (including the AR(1) model), and the period of 2013:Q1 – 2016:Q1 will be forecasted. The sample is reasonably large, 95 observations, with 82 of those being used as the sample period. Since the sample is reasonably large, I forecasted 1, 2, 3 and 4-steps-ahead. 4-step-ahead is meaningful in this case as the data is quarterly so 4-step-ahead completes a full year.
 
 The loop used to forecast is below:
@@ -1660,7 +1611,7 @@ cwp4
 ```
 The trivariate model (VAR Model 3) performs better than the VAR Model 1 at all steps ahead at the 5% level of significance. VAR Model 3 performs better than VAR Model 2 at the 2 and 3-steps-ahead at the 5% level of significance and 1 and 4-steps-aheads at the 5% level of significance. The trivariate model performs better than the AR(1) model at the 5% level of significance and almost at the 1% level of significance.
 
-#Conclusion
+## Conclusion
 Given the comparison test results, it appears that the VAR Model 3, the model including both the consumer sentiment index and the 10-Year Treasury Constant Maturity Rate, is best out of the VAR models tested in this paper in forecasting future values of new establishment births. VAR Model 3 is also significantly better than a simple AR(1) model.
 
 The results are intriguing, because as seen earlier when observing the time series, the establishment birth rate moved with the consumer sentiment index and the 10-Year Treasury rate pretty well. I would expect establishment birth rate to move with CSI, as when the economy is doing poorly one would expect consumers to have low confidence in the economy. If the economy is doing poorly, persons, who are also consumers with low confidence, are probably unlikely to start new businesses. The 10-Year Treasury moves with establishment birth rate as well instead of opposite of it, which still helps forecasting but does not support my hypothesis that low interest rates broadly would correspond to higher establishment birth rates. Apparently, the connection between interest rates and new business growth is not so clear cut. 
