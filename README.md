@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# Forecasting New U.S. Firm Growth with VAR Models
+﻿# Forecasting New U.S. Firm Growth with VAR Models
 Sam Veverka  
 20 March 2017  
 
@@ -2181,4 +2180,3 @@ The results are intriguing, because as seen earlier when observing the time seri
 
 
 ---
->>>>>>> origin/master
